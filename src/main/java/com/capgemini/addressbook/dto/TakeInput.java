@@ -5,20 +5,20 @@ import java.util.Scanner;
 public class TakeInput {
 	public void takeInput(ContactDetails contactDetails, Scanner scan) {
 		System.out.println("Please enter your First name :");
-		contactDetails.setFirstName(scan.nextLine());
+		contactDetails.setFirstName(scan.next());
 		System.out.println("Please enter your Last name :");
-		contactDetails.setLastName(scan.nextLine());
+		contactDetails.setLastName(scan.next());
 		System.out.println("Please enter your Address :");
-		contactDetails.setAddress(scan.nextLine());
+		contactDetails.setAddress(scan.next());
 		System.out.println("Please enter your City :");
-		contactDetails.setCity(scan.nextLine());
+		contactDetails.setCity(scan.next());
 		System.out.println("Please enter your State:");
-		contactDetails.setState(scan.nextLine());
+		contactDetails.setState(scan.next());
 		System.out.println("Please enter your Zip Code :");
-		contactDetails.setZip(scan.nextLine());
+		contactDetails.setZip(scan.next());
 		System.out.println("Please enter your Phone number :");
-		contactDetails.setPhoneNo(scan.nextLine());
+		contactDetails.setPhoneNo(scan.next());
 		System.out.println("Please enter your email Address :");
-		contactDetails.setEmailAddress(scan.nextLine());
+		contactDetails.setEmailAddress(scan.next());
 	}
 }
