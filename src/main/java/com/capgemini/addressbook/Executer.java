@@ -24,11 +24,16 @@ public class Executer {
 				break;
 			case 2:
 				personService.UpdateUser(addressBook, scan);
+				System.out.println("Updated!");
 				break;
 			case 3:
-				addressBook.ShowContact();
+				personService.DeleteUser(addressBook, scan);
+				System.out.println("Data Deleted!");
 				break;
 			case 4:
+				addressBook.ShowContact();
+				break;
+			case 5:
 				System.out.println("Exiting from Address Book Program");
 				return;
 			default:
@@ -41,8 +46,9 @@ public class Executer {
 	private int ChoiceInput(Scanner scan) {
 		System.out.println("Enter '1' for Add Contact");
 		System.out.println("Enter '2' for Update Contact");
-		System.out.println("Enter '3' for View Contact");
-		System.out.println("Enter '4' for Exit");
+		System.out.println("Enter '3' for Delete Contact");
+		System.out.println("Enter '4' for View Contact");
+		System.out.println("Enter '5' for Exit");
 		return scan.nextInt();
 	}
 }

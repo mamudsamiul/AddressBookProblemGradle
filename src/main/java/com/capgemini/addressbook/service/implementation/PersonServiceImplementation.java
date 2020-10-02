@@ -69,4 +69,11 @@ public class PersonServiceImplementation implements PersonService {
 			}
 		}
 	}
+	@Override
+	public void DeleteUser(AddressBook addressBook, Scanner scan) {
+		DetailsChecking detailsChecking=new DetailsChecking(addressBook,scan);
+		int addressBookIndex=detailsChecking.validate();
+		addressBook.getAddressBook().remove(addressBookIndex);
+	}
+	
 }
