@@ -6,5 +6,6 @@ import com.capgemini.addressbook.dto.AddressBook;
 
 public interface PersonService {
 	public void UpdateUser(AddressBook addressBook,Scanner scan);
+	public void DeleteUser(AddressBook addressBook,Scanner scan);
 
 }
