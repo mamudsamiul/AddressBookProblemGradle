@@ -34,4 +34,7 @@ public class AddressBook {
 	public ArrayList<ContactDetails> getAddressBook() {
 		return addressBook;
 	}
+	public String getName() {
+		return name;
+	}
 }

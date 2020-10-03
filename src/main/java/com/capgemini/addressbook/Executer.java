@@ -1,21 +1,70 @@
 package com.capgemini.addressbook;
 
 import java.util.Scanner;
-
 import com.capgemini.addressbook.dto.*;
+import com.capgemini.addressbook.service.implementation.AddressBookServiceImplementation;
 import com.capgemini.addressbook.service.implementation.PersonServiceImplementation;
 
 public class Executer {
+	private int choice = 0;
+	static Scanner scan = new Scanner(System.in);
+	TakeInput takeInput = new TakeInput();
+	PersonServiceImplementation personService = new PersonServiceImplementation();
+	AddressBookServiceImplementation addressBookService = new AddressBookServiceImplementation();
+	AddressBook addressBook;
+	AddressBookList addressBookList=new AddressBookList();
 	public static void main(String args[]) {
-		int choice = 0;
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Welcome to Address Book Program");
 		Executer executer = new Executer();
-		AddressBook addressBook = new AddressBook("first");
-		TakeInput takeInput = new TakeInput();
-		PersonServiceImplementation personService = new PersonServiceImplementation();
+		System.out.println("Welcome to Address Book Program");
+		while(true) {
+			int input;
+			input=executer.MainMenu(scan);
+			switch(input) {
+			case 1:
+				System.out.println("List of All address Book");
+				executer.addressBookService.showList(executer.addressBookList);
+				break;
+			case 2:
+				System.out.println("Enter the name of the Address Book");
+				break;
+			case 3:
+				System.out.println("Enter the name of the address Book for creation");
+				executer.addressBook= new AddressBook(scan.next());
+				executer.addressBookList.CreateAddressBook(executer.addressBook);
+				executer.SecondaryMenu();
+				break;
+				
+			case 4:
+				System.out.println("Enter the name of the address Book for Delete");
+				return;
+			case 5:
+				System.out.println("Bye");
+				return;
+			default:
+				System.out.println("Invalid Input!");
+			}
+		}	
+	}
+
+	private int ChoiceInput(Scanner scan) {
+		System.out.println("Enter '1' for Add Contact");
+		System.out.println("Enter '2' for Update Contact");
+		System.out.println("Enter '3' for Delete Contact");
+		System.out.println("Enter '4' for View Contact");
+		System.out.println("Enter '5' for Exit");
+		return scan.nextInt();
+	}
+	private int MainMenu(Scanner scan) {
+		System.out.println("Enter '1' To Get the Address Book List");
+		System.out.println("Enter '2' To enter into an address book");
+		System.out.println("Enter '3' to add new address book");
+		System.out.println("Enter '4' to delete an address Book");
+		System.out.println("Enter '5' for EXIT");
+		return scan.nextInt();
+	}
+	private void SecondaryMenu() {
 		while (true) {
-			choice = executer.ChoiceInput(scan);
+			choice = ChoiceInput(scan);
 			switch (choice) {
 			case 1:
 				ContactDetails contactDetails = new ContactDetails();
@@ -41,14 +90,5 @@ public class Executer {
 				break;
 			}
 		}
-	}
-
-	private int ChoiceInput(Scanner scan) {
-		System.out.println("Enter '1' for Add Contact");
-		System.out.println("Enter '2' for Update Contact");
-		System.out.println("Enter '3' for Delete Contact");
-		System.out.println("Enter '4' for View Contact");
-		System.out.println("Enter '5' for Exit");
-		return scan.nextInt();
 	}
 }
