@@ -12,38 +12,51 @@ public class Executer {
 	PersonServiceImplementation personService = new PersonServiceImplementation();
 	AddressBookServiceImplementation addressBookService = new AddressBookServiceImplementation();
 	AddressBook addressBook;
-	AddressBookList addressBookList=new AddressBookList();
+	AddressBookList addressBookList = new AddressBookList();
+
 	public static void main(String args[]) {
 		Executer executer = new Executer();
 		System.out.println("Welcome to Address Book Program");
-		while(true) {
+		while (true) {
 			int input;
-			input=executer.MainMenu(scan);
-			switch(input) {
+			input = executer.MainMenu(scan);
+			switch (input) {
 			case 1:
 				System.out.println("List of All address Book");
 				executer.addressBookService.showList(executer.addressBookList);
 				break;
 			case 2:
 				System.out.println("Enter the name of the Address Book");
+				int index = executer.addressBookService.FindAddressBook(scan.next(), executer.addressBookList);
+				if (index >= 0) {
+					executer.addressBook = executer.addressBookList.getAddressBookList().get(index);
+					executer.SecondaryMenu();
+				} else
+					System.out.println("Record not found!");
 				break;
 			case 3:
 				System.out.println("Enter the name of the address Book for creation");
-				executer.addressBook= new AddressBook(scan.next());
+				executer.addressBook = new AddressBook(scan.next());
 				executer.addressBookList.CreateAddressBook(executer.addressBook);
 				executer.SecondaryMenu();
 				break;
-				
+
 			case 4:
 				System.out.println("Enter the name of the address Book for Delete");
-				return;
+				int indexAddress = executer.addressBookService.FindAddressBook(scan.next(), executer.addressBookList);
+				if (indexAddress >= 0) {
+					executer.addressBookList.getAddressBookList().remove(indexAddress);
+					System.out.println("Entry deleted!!");
+				} else
+					System.out.println("Record not found!");
+				break;
 			case 5:
 				System.out.println("Bye");
 				return;
 			default:
 				System.out.println("Invalid Input!");
 			}
-		}	
+		}
 	}
 
 	private int ChoiceInput(Scanner scan) {
@@ -54,6 +67,7 @@ public class Executer {
 		System.out.println("Enter '5' for Exit");
 		return scan.nextInt();
 	}
+
 	private int MainMenu(Scanner scan) {
 		System.out.println("Enter '1' To Get the Address Book List");
 		System.out.println("Enter '2' To enter into an address book");
@@ -62,14 +76,17 @@ public class Executer {
 		System.out.println("Enter '5' for EXIT");
 		return scan.nextInt();
 	}
+
 	private void SecondaryMenu() {
 		while (true) {
 			choice = ChoiceInput(scan);
 			switch (choice) {
 			case 1:
 				ContactDetails contactDetails = new ContactDetails();
-				takeInput.takeInput(contactDetails, scan);
-				addressBook.AddContact(contactDetails);
+				if (takeInput.takeInput(contactDetails, addressBook, scan))
+					addressBook.AddContact(contactDetails);
+				else
+					System.out.println("Duplicate Entry!");
 				break;
 			case 2:
 				personService.UpdateUser(addressBook, scan);

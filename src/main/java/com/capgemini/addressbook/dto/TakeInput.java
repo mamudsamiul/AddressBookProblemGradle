@@ -2,23 +2,47 @@ package com.capgemini.addressbook.dto;
 
 import java.util.Scanner;
 
+import com.capgemini.addressbook.service.implementation.PersonServiceImplementation;
+
 public class TakeInput {
-	public void takeInput(ContactDetails contactDetails, Scanner scan) {
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String city;
+	private String state;
+	private String zip;
+	private String phoneNo;
+	private String email;
+	private PersonServiceImplementation personService = new PersonServiceImplementation();
+
+	public boolean takeInput(ContactDetails contactDetails, AddressBook addressBook, Scanner scan) {
 		System.out.println("Please enter your First name :");
-		contactDetails.setFirstName(scan.next());
+		firstName = (scan.next());
 		System.out.println("Please enter your Last name :");
-		contactDetails.setLastName(scan.next());
+		lastName = (scan.next());
 		System.out.println("Please enter your Address :");
-		contactDetails.setAddress(scan.next());
+		address = (scan.next());
 		System.out.println("Please enter your City :");
-		contactDetails.setCity(scan.next());
+		city = (scan.next());
 		System.out.println("Please enter your State:");
-		contactDetails.setState(scan.next());
+		state = (scan.next());
 		System.out.println("Please enter your Zip Code :");
-		contactDetails.setZip(scan.next());
+		zip = (scan.next());
 		System.out.println("Please enter your Phone number :");
-		contactDetails.setPhoneNo(scan.next());
+		phoneNo = (scan.next());
 		System.out.println("Please enter your email Address :");
-		contactDetails.setEmailAddress(scan.next());
+		email = (scan.next());
+		if (personService.DuplicateChecker(addressBook, firstName, lastName, scan)) {
+			contactDetails.setFirstName(firstName);
+			contactDetails.setLastName(lastName);
+			contactDetails.setAddress(address);
+			contactDetails.setCity(city);
+			contactDetails.setState(state);
+			contactDetails.setZip(zip);
+			contactDetails.setPhoneNo(phoneNo);
+			contactDetails.setEmailAddress(email);
+			return true;
+		} else
+			return false;
 	}
 }
