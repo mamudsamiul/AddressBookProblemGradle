@@ -51,6 +51,14 @@ public class Executer {
 					System.out.println("Record not found!");
 				break;
 			case 5:
+				System.out.println("Please enter the city name:");
+				executer.addressBookService.SearchByCity(executer.addressBookList, scan.next());
+				break;
+			case 6:
+				System.out.println("Please enter the city name:");
+				executer.addressBookService.SearchByState(executer.addressBookList, scan.next());
+				break;
+			case 7:
 				System.out.println("Bye");
 				return;
 			default:
@@ -73,7 +81,9 @@ public class Executer {
 		System.out.println("Enter '2' To enter into an address book");
 		System.out.println("Enter '3' to add new address book");
 		System.out.println("Enter '4' to delete an address Book");
-		System.out.println("Enter '5' for EXIT");
+		System.out.println("Enter '5' to Find person by city");
+		System.out.println("Enter '6' to Find person by State");
+		System.out.println("Enter '7' for EXIT");
 		return scan.nextInt();
 	}
 
