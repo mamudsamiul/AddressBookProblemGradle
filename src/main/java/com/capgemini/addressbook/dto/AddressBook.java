@@ -18,7 +18,7 @@ public class AddressBook {
 
 	public void ShowContact() {
 		for (int i = 0; i < addressBook.size(); i++) {
-			System.out.print(i+1 + " Entry = ");
+			System.out.print(i + 1 + " Entry = ");
 			System.out.print(addressBook.get(i).getFirstName());
 			System.out.print(" " + addressBook.get(i).getLastName());
 			System.out.print(" " + addressBook.get(i).getAddress());
@@ -34,6 +34,7 @@ public class AddressBook {
 	public ArrayList<ContactDetails> getAddressBook() {
 		return addressBook;
 	}
+
 	public String getName() {
 		return name;
 	}
