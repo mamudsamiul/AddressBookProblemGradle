@@ -1,5 +1,7 @@
 package com.capgemini.addressbook;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import com.capgemini.addressbook.dto.*;
 import com.capgemini.addressbook.service.implementation.AddressBookServiceImplementation;
@@ -13,6 +15,10 @@ public class Executer {
 	AddressBookServiceImplementation addressBookService = new AddressBookServiceImplementation();
 	AddressBook addressBook;
 	AddressBookList addressBookList = new AddressBookList();
+	AddressBook personByState;
+	AddressBook personByCity;
+	AddressBookList stateList = new AddressBookList();
+	AddressBookList cityList = new AddressBookList();
 
 	public static void main(String args[]) {
 		Executer executer = new Executer();
@@ -55,7 +61,7 @@ public class Executer {
 				executer.addressBookService.SearchByCity(executer.addressBookList, scan.next());
 				break;
 			case 6:
-				System.out.println("Please enter the city name:");
+				System.out.println("Please enter the State name:");
 				executer.addressBookService.SearchByState(executer.addressBookList, scan.next());
 				break;
 			case 7:
@@ -93,17 +99,24 @@ public class Executer {
 			switch (choice) {
 			case 1:
 				ContactDetails contactDetails = new ContactDetails();
-				if (takeInput.takeInput(contactDetails, addressBook, scan))
+				if (takeInput.takeInput(contactDetails, addressBook, scan)) {
 					addressBook.AddContact(contactDetails);
-				else
+					addressBookService.AddStateToDictionary(stateList, contactDetails);
+					addressBookService.AddCityToDictionary(stateList, contactDetails);
+				} else
 					System.out.println("Duplicate Entry!");
+
 				break;
 			case 2:
-				personService.UpdateUser(addressBook, scan);
+				int index = personService.UpdateUser(addressBook, scan);
+				addressBookService.deleteStateFromDictionary(stateList, index, addressBook);
+				addressBookService.convertState(stateList, index, addressBook);
+				addressBookService.convertCity(cityList, index, addressBook);
 				System.out.println("Updated!");
 				break;
 			case 3:
-				personService.DeleteUser(addressBook, scan);
+				int indexAdd = personService.DeleteUser(addressBook, scan);
+				addressBookService.deleteStateFromDictionary(stateList, indexAdd, addressBook);
 				System.out.println("Data Deleted!");
 				break;
 			case 4:

@@ -1,6 +1,8 @@
 package com.capgemini.addressbook.service.implementation;
 
+import com.capgemini.addressbook.dto.AddressBook;
 import com.capgemini.addressbook.dto.AddressBookList;
+import com.capgemini.addressbook.dto.ContactDetails;
 import com.capgemini.addressbook.service.AddressBookService;
 
 public class AddressBookServiceImplementation implements AddressBookService {
@@ -78,5 +80,56 @@ public class AddressBookServiceImplementation implements AddressBookService {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void AddStateToDictionary(AddressBookList addressBookList, ContactDetails contactDetails) {
+		int indexAddress = FindAddressBook(contactDetails.getState(), addressBookList);
+		if (indexAddress < 0) {
+			AddressBook addressBook = new AddressBook(contactDetails.getState());
+			addressBook.AddContact(contactDetails);
+
+		} else {
+			addressBookList.getAddressBookList().get(indexAddress).AddContact(contactDetails);
+		}
+	}
+
+	@Override
+	public void AddCityToDictionary(AddressBookList addressBookList, ContactDetails contactDetails) {
+		int indexAddress = FindAddressBook(contactDetails.getCity(), addressBookList);
+		if (indexAddress < 0) {
+			AddressBook addressBook = new AddressBook(contactDetails.getCity());
+			addressBook.AddContact(contactDetails);
+
+		} else {
+			addressBookList.getAddressBookList().get(indexAddress).AddContact(contactDetails);
+		}
+
+	}
+
+	public void convertState(AddressBookList stateList, int index, AddressBook addressBook) {
+		ContactDetails contactDetails = addressBook.getAddressBook().get(index);
+		AddStateToDictionary(stateList, contactDetails);
+	}
+
+	public void convertCity(AddressBookList cityList, int index, AddressBook addressBook) {
+		ContactDetails contactDetails = addressBook.getAddressBook().get(index);
+		AddStateToDictionary(cityList, contactDetails);
+	}
+
+	@Override
+	public void deleteStateFromDictionary(AddressBookList stateList, int index, AddressBook addressBook) {
+		ContactDetails contactDetails = addressBook.getAddressBook().get(index);
+		int indexAddress = FindAddressBook(contactDetails.getState(), stateList);
+		stateList.getAddressBookList().remove(index);
+
+	}
+
+	@Override
+	public void deleteCityFromDictionary(AddressBookList cityList, int index, AddressBook addressBook) {
+		ContactDetails contactDetails = addressBook.getAddressBook().get(index);
+		int indexAddress = FindAddressBook(contactDetails.getCity(), cityList);
+		cityList.getAddressBookList().remove(index);
+
 	}
 }

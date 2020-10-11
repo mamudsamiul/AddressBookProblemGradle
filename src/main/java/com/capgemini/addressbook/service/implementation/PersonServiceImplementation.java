@@ -14,7 +14,7 @@ public class PersonServiceImplementation implements PersonService {
 	}
 
 	@Override
-	public void UpdateUser(AddressBook addressBook, Scanner scan) {
+	public int UpdateUser(AddressBook addressBook, Scanner scan) {
 		DetailsChecking detailsChecking = new DetailsChecking(addressBook, scan);
 		ChoiceForEdit choiceForEdit = new ChoiceForEdit(scan);
 		int addressBookIndex = detailsChecking.validate();
@@ -64,20 +64,22 @@ public class PersonServiceImplementation implements PersonService {
 					break;
 				case 9:
 					System.out.println("Going Back to main menu");
-					return;
+					return addressBookIndex;
 				default:
 					System.out.println("Invalid Input");
 					break;
 				}
 			}
 		}
+		return addressBookIndex;
 	}
 
 	@Override
-	public void DeleteUser(AddressBook addressBook, Scanner scan) {
+	public int DeleteUser(AddressBook addressBook, Scanner scan) {
 		DetailsChecking detailsChecking = new DetailsChecking(addressBook, scan);
 		int addressBookIndex = detailsChecking.validate();
 		addressBook.getAddressBook().remove(addressBookIndex);
+		return addressBookIndex;
 	}
 
 	@Override
