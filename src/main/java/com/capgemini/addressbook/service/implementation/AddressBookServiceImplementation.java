@@ -132,4 +132,20 @@ public class AddressBookServiceImplementation implements AddressBookService {
 		cityList.getAddressBookList().remove(index);
 
 	}
+	public int countPersonByState(AddressBookList stateList ,String state) {
+		for(int i=0;i<stateList.getAddressBookList().size();i++) {
+			if(stateList.getAddressBookList().get(i).getName().equals(state)){
+				return i;
+			}
+		}
+		return -1;
+	}
+	public int countPersonByCity(AddressBookList cityList ,String city) {
+		for(int i=0;i<cityList.getAddressBookList().size();i++) {
+			if(cityList.getAddressBookList().get(i).getName().equals(city)){
+				return i;
+			}
+		}
+		return -1;
+	}
 }
