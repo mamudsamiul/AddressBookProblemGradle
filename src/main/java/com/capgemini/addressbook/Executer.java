@@ -1,11 +1,14 @@
 package com.capgemini.addressbook;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import com.capgemini.addressbook.dto.*;
 import com.capgemini.addressbook.service.implementation.AddressBookServiceImplementation;
 import com.capgemini.addressbook.service.implementation.PersonServiceImplementation;
+
+import jdk.internal.misc.FileSystemOption;
 
 public class Executer {
 	private int choice = 0;
@@ -57,12 +60,23 @@ public class Executer {
 					System.out.println("Record not found!");
 				break;
 			case 5:
+				int counter=0;
 				System.out.println("Please enter the city name:");
-				executer.addressBookService.SearchByCity(executer.addressBookList, scan.next());
+				String inputState=scan.next();
+				executer.addressBookService.SearchByCity(executer.addressBookList, inputState);
+				int indexPerson=executer.addressBookService.countPersonByState(executer.cityList, inputState);
+				ArrayList<ContactDetails> list=executer.cityList.getAddressBookList().get(indexPerson).getAddressBook();
+				counter+= list.stream().filter(obj->obj.getCity().equals(inputState)).count();
+				
 				break;
 			case 6:
+				int counter1=0;
 				System.out.println("Please enter the State name:");
-				executer.addressBookService.SearchByState(executer.addressBookList, scan.next());
+				String inputCity=scan.next();
+				executer.addressBookService.SearchByState(executer.addressBookList, inputCity);
+				int indexPerson1=executer.addressBookService.countPersonByState(executer.stateList, inputState);
+				ArrayList<ContactDetails> list1=executer.stateList.getAddressBookList().get(indexPerson1).getAddressBook();
+				counter1+= list1.stream().filter(obj->obj.getState().equals(inputState)).count();
 				break;
 			case 7:
 				System.out.println("Bye");
